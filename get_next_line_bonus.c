@@ -1,4 +1,4 @@
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -88,17 +88,17 @@ static char	*ft_read(char *data, char **buffer, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	data[BUFFER_SIZE + 1];
+	static char	data[255][BUFFER_SIZE + 1];
 	char		*line;
 	char		*buffer;
 
-	if (fd < 0 || BUFFER_SIZE < 0)
+	if (fd < 0 || fd > 255 || BUFFER_SIZE < 0)
 		return (0);
-	if (!data[0])
+	if (!data[fd][0])
 		buffer = ft_strdup("");
 	else
-		buffer = ft_strdup(data);
-	line = ft_read(data, &buffer, fd);
+		buffer = ft_strdup(data[fd]);
+	line = ft_read(data[fd], &buffer, fd);
 	free(buffer);
 	return (line);
 }
