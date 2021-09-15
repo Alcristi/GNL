@@ -22,7 +22,9 @@ void	ft_strcpy(char *dest, const char *src, size_t size_src)
 	if (!dest && !src)
 		return ;
 	i = 0;
-	size_dest = ft_strlen(dest);
+	size_dest = 0;
+	while (dest[size_dest])
+		size_dest++;
 	ft_bzero(dest, size_dest);
 	while (i < size_src)
 	{
@@ -35,9 +37,11 @@ void	ft_strcpy(char *dest, const char *src, size_t size_src)
 void	get_line(char **buffer, char **line, char *data)
 {
 	int		i;
+	int		size_data;
 	char	*tmp_data;
 
 	i = 0;
+	size_data = 0;
 	tmp_data = ft_strdup("");
 	while (buffer[0][i] != '\n' && buffer[0][i] != '\0')
 		i++;
@@ -49,7 +53,9 @@ void	get_line(char **buffer, char **line, char *data)
 	}
 	else
 		line[0] = ft_strdup(buffer[0]);
-	ft_strcpy(data, tmp_data, ft_strlen(tmp_data));
+	while (tmp_data[size_data])
+		size_data++;
+	ft_strcpy(data, tmp_data, size_data);
 	free(tmp_data);
 }
 
@@ -60,7 +66,9 @@ char	*ft_read(char *data, char **buffer, int fd)
 	int		total_r;
 
 	r = 1;
-	total_r = ft_strlen(buffer[0]);
+	total_r = 0;
+	while (buffer[0][total_r])
+		total_r++;
 	while (!ft_strchr(buffer[0], '\n') && r)
 	{
 		r = read(fd, data, BUFFER_SIZE);
@@ -69,7 +77,6 @@ char	*ft_read(char *data, char **buffer, int fd)
 			break ;
 		buffer[0] = ft_strjoin(buffer[0], data);
 		buffer[0][total_r] = '\0';
-
 	}
 	if (r < 0)
 		return (NULL);
@@ -90,10 +97,7 @@ char	*get_next_line(int fd)
 	if (!data[0])
 		buffer = ft_strdup("");
 	else
-	{
 		buffer = ft_strdup(data);
-		ft_bzero(data, BUFFER_SIZE);
-	}
 	line = ft_read(data, &buffer, fd);
 	free(buffer);
 	return (line);
