@@ -6,7 +6,7 @@
 /*   By: alcristi <alcristi@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 07:54:05 by alcristi          #+#    #+#             */
-/*   Updated: 2021/09/15 07:55:15 by alcristi         ###   ########.fr       */
+/*   Updated: 2021/09/15 08:48:09 by alcristi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include<stdlib.h>
-# include <stdio.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000
